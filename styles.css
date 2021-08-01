@@ -1,0 +1,19 @@
+*{
+    border:2px solid red;
+}
+
+body{
+    display:flex;
+    flex-direction: column;
+    margin:0px;
+}
+
+header{
+    background-color: purple;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    width:25%;
+}
