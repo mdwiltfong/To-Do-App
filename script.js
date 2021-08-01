@@ -54,6 +54,7 @@ form.addEventListener('submit', (e) => {
 let savedData = JSON.parse(localStorage.getItem(`todos`));
 if (!savedData) {
     console.log(`clear`)
+    
     let li = document.createElement('li');
     let text= '. . .';
     li.append(text);
