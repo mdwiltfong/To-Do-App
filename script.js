@@ -11,14 +11,11 @@ form.addEventListener('submit', (e) => {
     e.preventDefault();
     //  console.log(`input`)
     //console.log(typeof e.path[0][0].value)
-    let newLabel = document.createElement('label');
-    let newInput = document.createElement('input');
-    newInput.setAttribute('type', 'checkbox');
-    newLabel.append(newInput);
-    let text = document.createTextNode(`${e.path[0][0].value}`);
-    newLabel.append(text);
-    form.append(newLabel);
-    inputText.value = " ";
+    let text = e.path[0][0].value;
+    let li = document.createElement('li');
+    li.append(text);
+    ul.append(li);
+    inputText.value="";
 })
 
 //crossout task
