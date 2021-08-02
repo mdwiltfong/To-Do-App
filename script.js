@@ -2,7 +2,9 @@ let checkbox = document.querySelector("input[type=checkbox]")
 let form = document.querySelector("form");
 let inputText = document.querySelector("input[type=text]")
 let ul = document.querySelector("ul");
-let data = [];
+let data=JSON.parse(localStorage.getItem(`todos`)) || [ ];
+let tasks=[];
+console.log(data);
 //remove task
 
 
@@ -13,11 +15,16 @@ form.addEventListener('submit', (e) => {
     //  console.log(`input`)
     //console.log(typeof e.path[0][0].value)
     let text = e.path[0][0].value;
-    data.push(text);
+    tasks=[...tasks,text];
+    console.log(tasks);
     let li = document.createElement('li');
     li.append(text);
     ul.append(li);
     inputText.value = "";
+
+    //save to localstorage
+    data.push({task:li.innerText})
+    localStorage.setItem("todos",JSON.stringify(data))
 })
 
 
@@ -27,9 +34,7 @@ form.addEventListener('click', (e) => {
     console.log(e.type)
     console.log(e);
     if (e.target.style.textDecoration == `line-through`) {
-        ul.removeChild(e.target);
-        let i = data.indexOf(e.path.value);
-        data[i]=" ";    
+        ul.removeChild(e.target);  
     } else if (e.target.getAttribute('type') !== `text`) {
         e.target.style.textDecoration = `line-through`;
     }
@@ -40,8 +45,8 @@ form.addEventListener('click', (e) => {
 //store task
 
 form.addEventListener('submit', (e) => {
-    let store = JSON.stringify(data);
-    localStorage.setItem(`todos`, store)
+
+
 
 })
 
@@ -51,20 +56,23 @@ form.addEventListener('submit', (e) => {
 
 //Pull data
 
-let savedData = JSON.parse(localStorage.getItem(`todos`));
-if (!savedData) {
-    console.log(`clear`)
-    let li = document.createElement('li');
-    let text= '. . .';
-    li.append(text);
-    ul.append(li);
-} else {
-    console.log(savedData);
-    for (let i = 0; i < savedData.length; i++) {
+window.addEventListener('DOMContentLoaded',(e)=>{
+    if (!data) {
+        console.log(`clear`)
+        
         let li = document.createElement('li');
-        let text = savedData[i];
+        let text= '. . .';
         li.append(text);
         ul.append(li);
-        inputText.value = "";
+    } else {
+        console.log(data);
+        for (let i = 0; i < data.length; i++) {
+            let li = document.createElement('li');
+            let text = data[i].task;
+            li.append(text);
+            ul.append(li);
+            inputText.value = "";
+        }
     }
-}
+
+})  
